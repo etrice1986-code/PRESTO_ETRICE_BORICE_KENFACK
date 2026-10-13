@@ -1,0 +1,8 @@
+.heightCustom{
+    height: 70vh;
+}
+.cardimg{
+     
+    height: 18rem;
+    object-fit: cover;
+}

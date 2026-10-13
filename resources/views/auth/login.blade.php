@@ -1,0 +1,58 @@
+<x-layout>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-5">
+
+                <div class="card shadow-lg border-0 rounded-4 p-4">
+                    <h1 class="fw-bold text-center mb-4">Accedi</h1>
+
+                    <form action="{{ route('login') }}" method="POST">
+                        @csrf
+
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-semibold">Email</label>
+                            <input type="email" id="email" name="email"
+                                   class="form-control form-control-lg rounded-3 @error('email') is-invalid @enderror"
+                                   value="{{ old('email') }}">
+                            @error('email')
+                                <div class="invalid-feedback fw-medium">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                       
+                        <div class="mb-4">
+                            <label for="password" class="form-label fw-semibold">Password</label>
+                            <input type="password" id="password" name="password"
+                                   class="form-control form-control-lg rounded-3 @error('password') is-invalid @enderror">
+                            @error('password')
+                                <div class="invalid-feedback fw-medium">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-4 rounded-3">
+                                Accedi
+                            </button>
+
+                            <p class="m-0 text-end">
+                                <span class="fw-semibold">Non sei registrato?</span><br>
+                                <a href="{{ route('register') }}" class="btn btn-outline-warning btn-sm mt-1">
+                                    Registrati
+                                </a>
+                            </p>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</x-layout>
