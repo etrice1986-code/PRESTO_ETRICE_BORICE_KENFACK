@@ -8,16 +8,29 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
 
-        $articles = Article::with('category')
-            ->where('is_accepted', true)
-            ->latest()
-            ->paginate(12);
+        $query = $request->input('search');
 
-        return view('article.index', compact('articles'));
+        if ($query) {
+
+            $articles = Article::search($query)
+                ->query(function ($builder) {
+                    $builder->where('is_accepted', true)->with('category');
+                })
+                ->paginate(12);
+        } else {
+
+            $articles = Article::with('category')
+                ->where('is_accepted', true)
+                ->latest()
+                ->paginate(12);
+        }
+
+        return view('article.index', compact('articles', 'query'));
     }
+
 
 
     public function create()

@@ -43,17 +43,20 @@
       </div>
     </div>
 
-    
+        
     <div class="d-none d-md-flex flex-grow-1 justify-content-center mx-4" style="max-width: 500px;">
-      <form action="#" method="GET" class="w-100 position-relative">
+      
+      <form action="{{ route('article.index') }}" method="GET" class="w-100 position-relative">
         <div class="input-group">
           <span class="input-group-text bg-light border-0 text-muted ps-3 pe-2" style="border-radius: 20px 0 0 20px;">
             <i class="bi bi-search"></i>
           </span>
-          <input type="text" name="search" class="form-control bg-light border-0 py-2 shadow-none" placeholder="Cerca su Presto..." style="border-radius: 0 20px 20px 0; font-size: 14px;">
+          
+          <input type="text" name="search" value="{{ request()->get('search') }}" class="form-control bg-light border-0 py-2 shadow-none" placeholder="Cerca su Presto..." style="border-radius: 0 20px 20px 0; font-size: 14px;">
         </div>
       </form>
     </div>
+
 
    
     <div class="d-flex align-items-center">
