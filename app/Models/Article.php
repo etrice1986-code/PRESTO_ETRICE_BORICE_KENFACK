@@ -16,8 +16,10 @@ class Article extends Model
         'description',
         'price',
         'category_id',
-        'user_id'
+        'user_id',
+        'is_accepted',
     ];
+
 
 
     public function category(): BelongsTo

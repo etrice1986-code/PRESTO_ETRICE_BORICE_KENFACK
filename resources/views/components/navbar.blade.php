@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top px-3 py-2">
   <div class="container-fluid d-flex justify-content-between align-items-center">
     
-   
+    
     <div class="d-flex align-items-center">
       <a class="navbar-brand text-primary fw-bold fs-3" href="{{ route('home') }}" style="letter-spacing: -0.5px;">
         presto<span class="text-secondary">.</span>
@@ -31,6 +31,7 @@
             </ul>
           </li>
 
+          
           @auth
           <li class="nav-item">
             <a class="nav-link px-3 fw-semibold text-muted" href="{{ route('article.create') }}">
@@ -54,10 +55,10 @@
       </form>
     </div>
 
-    
+   
     <div class="d-flex align-items-center">
       
-      
+     
       <button class="navbar-toggler border-0 bg-light p-2 me-2 rounded-circle d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -72,7 +73,26 @@
             <span class="fw-semibold d-none d-sm-inline" style="font-size: 14px;">{{ Auth::user()->name }}</span>
           </button>
           
-          <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 p-2" style="border-radius: 10px; min-width: 200px;">
+          <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 p-2" style="border-radius: 10px; min-width: 220px;">
+            
+            
+            @if(Auth::user()->is_revisor)
+                <li>
+                    <a href="{{ route('revisor.index') }}" class="dropdown-item rounded py-2 text-primary fw-bold">
+                        <i class="bi bi-shield-check me-2"></i> Dashboard Revisore
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider text-muted"></li>
+            @else
+                
+                <li>
+                    <a href="{{ route('careers') }}" class="dropdown-item rounded py-2">
+                        <i class="bi bi-briefcase-fill me-2 text-warning"></i> Lavora con noi
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider text-muted"></li>
+            @endif
+
             <li>
               <a href="{{ route('article.create') }}" class="dropdown-item rounded py-2">
                 <i class="bi bi-plus-lg me-2 text-success"></i> Crea un articolo

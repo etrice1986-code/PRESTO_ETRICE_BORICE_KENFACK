@@ -8,6 +8,33 @@
             
             <div class="row justify-content-center mb-3">
                 <div class="col-md-6">
+                    
+                    
+                    @if (session()->has('message'))
+                        <div class="alert alert-success alert-dismissible fade show shadow-sm border-0 rounded-3 py-3 mb-3 text-start" role="alert">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill me-2 fs-5 text-success"></i>
+                                <div>
+                                    {{ session('message') }}
+                                </div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    
+                    @if (session()->has('access_denied'))
+                        <div class="alert alert-danger alert-dismissible fade show shadow-sm border-0 rounded-3 py-3 mb-3 text-start" role="alert">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-exclamation-triangle-fill me-2 fs-5 text-danger"></i>
+                                <div>
+                                    {{ session('access_denied') }}
+                                </div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
                     <x-flash-messages/>
                 </div>
             </div>

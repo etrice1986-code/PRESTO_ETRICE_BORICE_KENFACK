@@ -11,10 +11,14 @@ class ArticleController extends Controller
     public function index()
     {
 
-        $articles = Article::with('category')->latest()->paginate(12);
+        $articles = Article::with('category')
+            ->where('is_accepted', true)
+            ->latest()
+            ->paginate(12);
 
         return view('article.index', compact('articles'));
     }
+
 
     public function create()
     {
