@@ -80,4 +80,16 @@ class PublicController extends Controller
 
         return redirect()->route('home')->with('message', 'La tua richiesta è stata inviata con successo! Verrai ricontattato via email.');
     }
+
+
+
+    public function setLocale($locale)
+    {
+        // Verifica che la lingua scelta sia tra quelle permesse (it, en, es)
+        if (in_array($locale, ['it', 'en', 'es'])) {
+            session()->put('locale', $locale); // Salva la lingua nella sessione
+        }
+
+        return redirect()->back(); // Riporta l'utente alla pagina precedente
+    }
 }

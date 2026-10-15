@@ -44,3 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/lavora-con-noi', [PublicController::class, 'careers'])->name('careers');
     Route::post('/lavora-con-noi/submit', [PublicController::class, 'careersSubmit'])->name('careers.submit');
 });
+
+
+
+Route::get('/lingua/{locale}', [PublicController::class, 'setLocale'])->name('setLocale');

@@ -1,0 +1,69 @@
+<?php
+return [
+    'hello' => 'Hola',
+    'welcomeTitle' => 'Bienvenido a Presto.it',
+    'welcomeSubtitle' => 'El portal de anuncios para deshacerte de lo que ya no te gusta',
+    'insertAnnouncement' => 'Publicar un anuncio',
+    'latestAnnouncements' => 'Últimas novedades',
+    'allAnnouncements' => 'Ver todos los anuncios',
+    'categories' => 'Categorías',
+    'home' => 'Inicio',
+    'searchPlaceholder' => 'Buscar en Presto...',
+
+    'viewDetail' => 'Ver Detalle',
+    'allAnnouncementsSubtitle' => 'Explore las ofertas subidas por nuestra comunidad',
+    'newAnnouncement' => 'Nuevo Anuncio',
+    'noAnnouncements' => 'No se encontraron anuncios',
+    'noAnnouncementsSubtitle' => 'Aún no hay anuncios en la plataforma.',
+    'postFirstAd' => '¡Publica el primer anuncio!',
+    'backToAll' => 'Volver a todos los anuncios',
+    'publishedBy' => 'Publicado por:',
+    'publishedOn' => 'El',
+    'descriptionTitle' => 'Descripción del Producto',
+
+    'latestAnnouncementsSubtitle' => 'Echa un vistazo a los anuncios más recientes publicados en la plataforma',
+    'allAnnouncementsTitle' => 'Todos los Anuncios',
+    'login' => 'Acceder',
+    'register' => 'Registrarse',
+    'email' => 'Correo electrónico',
+    'password' => 'Contraseña',
+    'username' => 'Nombre de usuario',
+    'confirmPassword' => 'Confirmar contraseña',
+    'notRegistered' => '¿No estás registrado?',
+    'alreadyRegistered' => '¿Ya tienes una cuenta?',
+    'category' => 'Categoría:',
+
+
+    'Arredamento' => 'Mobiliario',
+    'Elettrodomestici' => 'Electrodomésticos',
+    'Informatica' => 'Informática y Electrónica',
+    'Abbigliamento' => 'Ropa',
+    'Sport e Tempo Libero' => 'Deporte y Tiempo Libre',
+    'Giardinaggio' => 'Jardinería',
+    'Libri e Riviste' => 'Libros y Revistas',
+    'Giochi e Videogiochi' => 'Juegos y Videojuegos',
+    'Motori' => 'Motores',
+    'Strumenti Musicali' => 'Instrumentos Musicales',
+
+
+    'createTitle' => 'Crear un nuevo anuncio',
+    'formTitle' => 'Título del anuncio',
+    'formDescription' => 'Descripción del producto',
+    'formPrice' => 'Precio',
+    'formCategory' => 'Selecciona una Categoría',
+    'formSubmit' => 'Publicar Anuncio',
+
+
+    'revisorDashboard' => 'Tablero del Revisor',
+    'revisorSubtitle' => 'Revisar y moderar los anuncios subidos a la plataforma',
+    'accept' => 'Aceptar',
+    'reject' => 'Rechazar',
+    'undoAction' => 'Deshacer última operación',
+    'noArticlesToReview' => 'No hay nuevos anuncios para revisar.',
+    'logout' => 'Cerrar Sesión',
+    'createArticleHeading' => 'Publica tu artículo',
+    'workWithUs' => 'Trabaja con nosotros',
+    'createAnArticle' => 'Crear un artículo',
+
+
+];

@@ -7,12 +7,13 @@
 
     
     <div class="card-body d-flex flex-column p-3">
-        
+
         <span class="badge bg-primary-subtle text-primary rounded-pill align-self-start mb-2 px-3 py-1" style="font-size: 12px; font-weight: 600;">
-            <a href="{{ route('category.show', $article->category) }}" class="text-decoration-none text-primary">
-                {{ $article->category->name }}
-            </a>
-        </span>
+        <a href="{{ route('category.show', $article->category) }}" class="text-decoration-none text-primary">
+            {{ __("ui." . $article->category->name) }}
+        </a>
+    </span>
+
         
         
         <h5 class="card-title fw-bold text-dark text-truncate mb-1" title="{{ $article->title }}">
@@ -30,8 +31,10 @@
         </p>
         
         
+                <!-- Sostituisci "Visualizza Dettaglio" con: -->
         <a href="{{ route('article.show', $article) }}" class="btn btn-outline-primary btn-sm w-100 rounded-pill mt-3 fw-semibold">
-            Visualizza Dettaglio
+            {{ __('ui.viewDetail') }}
         </a>
+
     </div>
 </div>

@@ -13,6 +13,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
 
 
+        $middleware->appendToGroup('web', [
+            \App\Http\Middleware\SetLocaleMiddleware::class,
+        ]);
+
+
         $middleware->alias([
             'isRevisor' => \App\Http\Middleware\IsRevisor::class,
         ]);

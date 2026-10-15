@@ -5,14 +5,14 @@
             <div class="col-12 col-md-5">
 
                 <div class="card shadow-lg border-0 rounded-4 p-4">
-                    <h1 class="fw-bold text-center mb-4">Accedi</h1>
+                    <h1 class="fw-bold text-center mb-4">{{ __('ui.login') }}</h1>
 
                     <form action="{{ route('login') }}" method="POST">
                         @csrf
 
                         
                         <div class="mb-3">
-                            <label for="email" class="form-label fw-semibold">Email</label>
+                            <label for="email" class="form-label fw-semibold">{{ __('ui.email') }}</label>
                             <input type="email" id="email" name="email"
                                    class="form-control form-control-lg rounded-3 @error('email') is-invalid @enderror"
                                    value="{{ old('email') }}">
@@ -25,7 +25,7 @@
 
                        
                         <div class="mb-4">
-                            <label for="password" class="form-label fw-semibold">Password</label>
+                            <label for="password" class="form-label fw-semibold">{{ __('ui.password') }}</label>
                             <input type="password" id="password" name="password"
                                    class="form-control form-control-lg rounded-3 @error('password') is-invalid @enderror">
                             @error('password')
@@ -36,15 +36,11 @@
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center">
-                            <button type="submit" class="btn btn-primary btn-lg px-4 rounded-3">
-                                Accedi
-                            </button>
+                            <button type="submit" class="btn btn-primary btn-lg px-4 rounded-3">{{ __('ui.login') }}</button>
 
                             <p class="m-0 text-end">
-                                <span class="fw-semibold">Non sei registrato?</span><br>
-                                <a href="{{ route('register') }}" class="btn btn-outline-warning btn-sm mt-1">
-                                    Registrati
-                                </a>
+                                <span class="fw-semibold">{{ __('ui.notRegistered') }}</span><br>
+                               <a href="{{ route('register') }}" class="btn btn-outline-warning btn-sm mt-1">{{ __('ui.register') }}</a>
                             </p>
                         </div>
 

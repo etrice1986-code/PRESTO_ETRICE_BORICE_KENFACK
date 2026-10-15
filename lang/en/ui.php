@@ -1,0 +1,69 @@
+<?php
+return [
+    'hello' => 'Hello',
+    'welcomeTitle' => 'Welcome to Presto.it',
+    'welcomeSubtitle' => 'The announcement portal to get rid of items you no longer like',
+    'insertAnnouncement' => 'Post an ad',
+    'latestAnnouncements' => 'Latest arrivals',
+    'allAnnouncements' => 'View all ads',
+    'categories' => 'Categories',
+    'home' => 'Home',
+    'searchPlaceholder' => 'Search on Presto...',
+
+    'viewDetail' => 'View Details',
+    'allAnnouncementsSubtitle' => 'Browse the deals uploaded by our community',
+    'newAnnouncement' => 'New Announcement',
+    'noAnnouncements' => 'No announcements found',
+    'noAnnouncementsSubtitle' => 'There are no announcements on the platform yet.',
+    'postFirstAd' => 'Post the first announcement!',
+    'backToAll' => 'Back to all announcements',
+    'publishedBy' => 'Published by:',
+    'publishedOn' => 'On',
+    'descriptionTitle' => 'Product Description',
+
+    'latestAnnouncementsSubtitle' => 'Check out the most recent ads published on the platform',
+    'allAnnouncementsTitle' => 'All Announcements',
+    'login' => 'Login',
+    'register' => 'Register',
+    'email' => 'Email',
+    'password' => 'Password',
+    'username' => 'Username',
+    'confirmPassword' => 'Confirm Password',
+    'notRegistered' => 'Not registered yet?',
+    'alreadyRegistered' => 'Already have an account?',
+    'category' => 'Category:',
+
+
+    'Arredamento' => 'Furniture',
+    'Elettrodomestici' => 'Home Appliances',
+    'Informatica' => 'Electronics & IT',
+    'Abbigliamento' => 'Clothing',
+    'Sport e Tempo Libero' => 'Sport & Hobbies',
+    'Giardinaggio' => 'Gardening',
+    'Libri e Riviste' => 'Books & Magazines',
+    'Giochi e Videogiochi' => 'Games & Video Games',
+    'Motori' => 'Motors',
+    'Strumenti Musicali' => 'Musical Instruments',
+
+
+    'createTitle' => 'Create a new announcement',
+    'formTitle' => 'Announcement Title',
+    'formDescription' => 'Product Description',
+    'formPrice' => 'Price',
+    'formCategory' => 'Select a Category',
+    'formSubmit' => 'Post Announcement',
+
+
+    'revisorDashboard' => 'Revisor Dashboard',
+    'revisorSubtitle' => 'Review and moderate announcements uploaded to the platform',
+    'accept' => 'Accept',
+    'reject' => 'Reject',
+    'undoAction' => 'Undo last operation',
+    'noArticlesToReview' => 'There are no new announcements to review.',
+    'logout' => 'Log Out',
+    'createArticleHeading' => 'Post your article',
+    'workWithUs' => 'Work with us',
+    'createAnArticle' => 'Create an article',
+
+
+];

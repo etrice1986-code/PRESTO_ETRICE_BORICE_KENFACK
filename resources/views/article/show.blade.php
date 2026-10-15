@@ -4,7 +4,7 @@
         <div class="row mb-4">
             <div class="col-12">
                 <a href="{{ route('article.index') }}" class="btn btn-light rounded-pill fw-semibold text-muted shadow-sm">
-                    <i class="bi bi-arrow-left me-1"></i> Torna a tutti gli annunci
+                    <i class="bi bi-arrow-left me-1"></i> {{ __('ui.backToAll') }}
                 </a>
             </div>
         </div>
@@ -59,12 +59,12 @@
             <div class="col-12 col-md-6 d-flex flex-column justify-content-between">
                 <div>
                     
-                    <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold mb-3">
-                        <i class="bi bi-tag-fill me-1"></i>
-                        <a href="{{ route('category.show', $article->category) }}" class="text-decoration-none text-primary">
-                            {{ $article->category->name }}
-                        </a>
-                    </span>
+                    <span class="badge bg-primary-subtle text-primary rounded-pill align-self-start mb-2 px-3 py-1" style="font-size: 12px; font-weight: 600;">
+                    <a href="{{ route('category.show', $article->category) }}" class="text-decoration-none text-primary">
+                        {{ __("ui." . $article->category->name) }}
+                    </a>
+                  </span>
+
 
                     
                     <h1 class="fw-bold text-dark display-5 mb-2">{{ $article->title }}</h1>
@@ -77,7 +77,7 @@
                     <hr class="text-muted mb-4">
 
                     
-                    <h5 class="fw-bold text-secondary mb-2">Descrizione dell'oggetto</h5>
+                    <h5 class="fw-bold text-secondary mb-2">{{ __('ui.descriptionTitle') }}</h5>
                     <p class="text-muted fs-5 lh-base" style="white-space: pre-line;">
                         {{ $article->description }}
                     </p>
@@ -90,8 +90,8 @@
                             {{ substr($article->user->name, 0, 1) }}
                         </div>
                         <div>
-                            <p class="mb-0 fw-bold text-dark">Pubblicato da: {{ $article->user->name }}</p>
-                            <p class="mb-0 text-muted small">Il {{ $article->created_at->format('d/m/Y \a\l\l\e H:i') }}</p>
+                            <p class="mb-0 fw-bold text-dark">{{ __('ui.publishedBy') }} {{ $article->user->name }}</p>
+                            <p class="mb-0 text-muted small">{{ __('ui.publishedOn') }} {{ $article->created_at->format('d/m/Y') }}</p>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,70 @@
+<?php
+return [
+    'hello' => 'Ciao',
+    'welcomeTitle' => 'Benvenuto su Presto.it',
+    'welcomeSubtitle' => 'Il portale degli annunci per liberarti di ciò che non ti piace più',
+    'insertAnnouncement' => 'Inserisci annuncio',
+    'latestAnnouncements' => 'Gli ultimi arrivi',
+    'allAnnouncements' => 'Vedi tutti gli annunci',
+    'categories' => 'Categorie',
+    'home' => 'Home',
+    'searchPlaceholder' => 'Cerca su Presto...',
+    'viewDetail' => 'Visualizza Dettaglio',
+    'allAnnouncementsSubtitle' => 'Sfoglia le occasioni caricate dagli utenti del portale',
+    'newAnnouncement' => 'Nuovo Annuncio',
+    'noAnnouncements' => 'Nessun annuncio trovato',
+    'noAnnouncementsSubtitle' => 'Non sono ancora presenti annunci sulla piattaforma.',
+    'postFirstAd' => 'Carica il primo annuncio!',
+    'backToAll' => 'Torna a tutti gli annunci',
+    'publishedBy' => 'Pubblicato da:',
+    'publishedOn' => 'Il',
+    'descriptionTitle' => 'Descrizione dell\'oggetto',
+
+    'latestAnnouncementsSubtitle' => 'Dai un\'occhiata agli annunci più recenti pubblicati sulla piattaforma',
+    'allAnnouncementsTitle' => 'Tutti gli Annunci',
+    'login' => 'Accedi',
+    'register' => 'Registrati',
+    'email' => 'Email',
+    'password' => 'Password',
+    'username' => 'Nome utente',
+    'confirmPassword' => 'Conferma Password',
+    'notRegistered' => 'Non sei registrato?',
+    'alreadyRegistered' => 'Hai già un account?',
+    'category' => 'Categoria:',
+
+
+    'Arredamento' => 'Arredamento',
+    'Elettrodomestici' => 'Elettrodomestici',
+    'Informatica' => 'Informatica',
+    'Abbigliamento' => 'Abbigliamento',
+    'Sport e Tempo Libero' => 'Sport e Tempo Libero',
+    'Giardinaggio' => 'Giardinaggio',
+    'Libri e Riviste' => 'Libri e Riviste',
+    'Giochi e Videogiochi' => 'Giochi e Videogiochi',
+    'Motori' => 'Motori',
+    'Strumenti Musicali' => 'Strumenti Musicali',
+
+
+    'createTitle' => 'Inserisci un nuovo annuncio',
+    'formTitle' => 'Titolo dell\'annuncio',
+    'formDescription' => 'Descrizione dell\'oggetto',
+    'formPrice' => 'Prezzo',
+    'formCategory' => 'Seleziona Categoria',
+    'formSubmit' => 'Pubblica Annuncio',
+
+
+    'revisorDashboard' => 'Dashboard Revisore',
+    'revisorSubtitle' => 'Rivedi e modera gli annunci caricati sulla piattaforma',
+    'accept' => 'Accetta',
+    'reject' => 'Rifiuta',
+    'undoAction' => 'Annulla ultima operazione',
+    'noArticlesToReview' => 'Non ci sono nuovi annunci da revisionare.',
+    'logout' => 'Esci da Presto',
+    'createArticleHeading' => 'Inserisci il tuo articolo',
+    'workWithUs' => 'Lavora con noi',
+    'createAnArticle' => 'Crea un articolo',
+
+
+
+
+];

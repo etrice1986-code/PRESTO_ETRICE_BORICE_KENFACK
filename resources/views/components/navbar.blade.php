@@ -11,31 +11,34 @@
         <ul class="navbar-nav border-start ps-3">
           <li class="nav-item">
             <a class="nav-link px-3 active fw-semibold text-dark" aria-current="page" href="{{ route('home') }}">
-              <i class="bi bi-house-door-fill me-1"></i> Home
+              <i class="bi bi-house-door-fill me-1"></i> {{ __('ui.home') }}
             </a>
           </li>
           
           
+                    
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle px-3 fw-semibold text-muted" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-tags-fill me-1"></i> Categorie
+              <i class="bi bi-tags-fill me-1"></i> {{ __('ui.categories') }}
             </a>
             <ul class="dropdown-menu shadow border-0 mt-2 p-2" style="border-radius: 10px;">
               @foreach($categories as $category)
                 <li>
+                  
                   <a class="dropdown-item rounded py-2" href="{{ route('category.show', $category) }}">
-                    {{ $category->name }}
+                    {{ __('ui.' . $category->name) }}
                   </a>
                 </li>
               @endforeach
             </ul>
           </li>
 
+
           
           @auth
           <li class="nav-item">
             <a class="nav-link px-3 fw-semibold text-muted" href="{{ route('article.create') }}">
-              <i class="bi bi-plus-circle-fill me-1"></i> Inserisci Annuncio
+              <i class="bi bi-plus-circle-fill me-1"></i> {{ __('ui.insertAnnouncement') }}
             </a>
           </li>
           @endauth
@@ -52,7 +55,8 @@
             <i class="bi bi-search"></i>
           </span>
           
-          <input type="text" name="search" value="{{ request()->get('search') }}" class="form-control bg-light border-0 py-2 shadow-none" placeholder="Cerca su Presto..." style="border-radius: 0 20px 20px 0; font-size: 14px;">
+          <input type="text" name="search" value="{{ request()->get('search') }}" class="form-control bg-light border-0 py-2 shadow-none" • placeholder="{{ __('ui.searchPlaceholder') }}"
+           style="border-radius: 0 20px 20px 0; font-size: 14px;">
         </div>
       </form>
     </div>
@@ -76,13 +80,13 @@
             <span class="fw-semibold d-none d-sm-inline" style="font-size: 14px;">{{ Auth::user()->name }}</span>
           </button>
           
-          <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 p-2" style="border-radius: 10px; min-width: 220px;">
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 p-2" style="border-radius: 10px; min-width: 220px;">
             
             
             @if(Auth::user()->is_revisor)
                 <li>
                     <a href="{{ route('revisor.index') }}" class="dropdown-item rounded py-2 text-primary fw-bold">
-                        <i class="bi bi-shield-check me-2"></i> Dashboard Revisore
+                        <i class="bi bi-shield-check me-2"></i> {{ __('ui.revisorDashboard') }}
                     </a>
                 </li>
                 <li><hr class="dropdown-divider text-muted"></li>
@@ -90,33 +94,41 @@
                 
                 <li>
                     <a href="{{ route('careers') }}" class="dropdown-item rounded py-2">
-                        <i class="bi bi-briefcase-fill me-2 text-warning"></i> Lavora con noi
+                        <i class="bi bi-briefcase-fill me-2 text-warning"></i> {{ __('ui.workWithUs') }}
                     </a>
                 </li>
                 <li><hr class="dropdown-divider text-muted"></li>
             @endif
 
+            
             <li>
               <a href="{{ route('article.create') }}" class="dropdown-item rounded py-2">
-                <i class="bi bi-plus-lg me-2 text-success"></i> Crea un articolo
+                <i class="bi bi-plus-lg me-2 text-success"></i> {{ __('ui.createAnArticle') }}
               </a>
             </li>
             <li><hr class="dropdown-divider text-muted"></li>
             <li>
               <a class="dropdown-item text-danger rounded py-2" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('form-logout').submit();">
-                <i class="bi bi-box-arrow-right me-2"></i> Esci da Presto
+                <i class="bi bi-box-arrow-right me-2"></i> {{ __('ui.logout') }}
               </a>
               <form action="{{ route('logout') }}" method="POST" id="form-logout" class="d-none">@csrf</form>
             </li>
           </ul>
+
         </div>
-      @else 
+            @else 
         
         <div class="d-flex gap-2">
-          <a href="{{ route('login') }}" class="btn btn-light fw-semibold text-primary px-3 rounded-pill" style="font-size: 14px;">Accedi</a>
-          <a href="{{ route('register') }}" class="btn btn-primary fw-semibold px-3 rounded-pill" style="font-size: 14px;">Registrati</a>
+          <a href="{{ route('login') }}" class="btn btn-light fw-semibold text-primary px-3 rounded-pill" style="font-size: 14px;">
+              {{ __('ui.login') }}
+          </a>
+          <a href="{{ route('register') }}" class="btn btn-primary fw-semibold px-3 rounded-pill" style="font-size: 14px;">
+              {{ __('ui.register') }}
+          </a>
         </div>
       @endauth
+
+       <x-flags />
 
     </div>
   </div>

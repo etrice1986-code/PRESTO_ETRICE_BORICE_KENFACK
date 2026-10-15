@@ -2,8 +2,10 @@
    
     <div class="container-fluid bg-light py-5 mb-5 shadow-sm border-bottom">
         <div class="container py-3 text-center">
-            <h1 class="display-3 fw-bold text-dark mb-2">Presto.it</h1>
-            <p class="lead text-muted fs-4 mb-4">Il portale degli annunci per liberarti di ciò che non ti piace più</p>
+            <h1 class="display-3 fw-bold text-dark mb-2">{{ __('ui.welcomeTitle') }}</h1>
+           
+            <p class="lead text-muted fs-4 mb-4">{{ __('ui.welcomeSubtitle') }}</p>
+
             
             
             <div class="row justify-content-center mb-3">
@@ -42,7 +44,7 @@
             
             <div class="mt-2">
                 <a href="{{ route('article.create') }}" class="btn btn-success btn-lg shadow px-5 py-3 fw-bold rounded-pill" style="font-size: 1.25rem;">
-                    <i class="bi bi-plus-circle-fill me-2"></i> Inserisci annuncio
+                    <i class="bi bi-plus-circle-fill me-2"></i> {{ __('ui.insertAnnouncement') }}
                 </a>
             </div>
         </div>
@@ -52,8 +54,9 @@
     <div class="container my-5">
         <div class="row mb-4 align-items-center">
             <div class="col-12 text-center text-md-start">
-                <h2 class="fw-bold text-dark mb-1">Gli ultimi arrivi</h2>
-                <p class="text-muted mb-0">Dai un'occhiata agli annunci più recenti pubblicati sulla piattaforma</p>
+                <h2 class="fw-bold text-dark mb-1">{{ __('ui.latestAnnouncements') }}</h2>
+                <p class="text-muted mb-0">{{ __('ui.latestAnnouncementsSubtitle') }}</p>
+
             </div>
         </div>
 
@@ -77,7 +80,7 @@
             <div class="row mt-5">
                 <div class="col-12 text-center">
                     <a href="{{ route('article.index') }}" class="btn btn-outline-primary btn-lg rounded-pill px-5 fw-semibold">
-                        Vedi tutti gli annunci <i class="bi bi-arrow-right ms-1"></i>
+                       {{ __('ui.allAnnouncements') }} <i class="bi bi-arrow-right ms-1"></i>
                     </a>
                 </div>
             </div>
