@@ -12,7 +12,7 @@
                     <form action="{{ route('careers.submit') }}" method="POST">
                         @csrf
 
-                        <!-- Dati Utente precompilati (Sola lettura per sicurezza) -->
+                       
                         <div class="mb-3">
                             <label class="form-label fw-semibold text-secondary">Il tuo Nome</label>
                             <input type="text" class="form-control bg-light" value="{{ Auth::user()->name }}" readonly>
@@ -23,7 +23,7 @@
                             <input type="email" class="form-control bg-light" value="{{ Auth::user()->email }}" readonly>
                         </div>
 
-                        <!-- Campo Messaggio Obbligatorio -->
+                       
                         <div class="mb-4">
                             <label for="message" class="form-label fw-semibold">Perché vuoi diventare un revisore? (Lettera di presentazione)</label>
                             <textarea id="message" name="message" rows="5" class="form-control rounded-3 @error('message') is-invalid @enderror" placeholder="Raccontaci brevemente le tue motivazioni...">{{ old('message') }}</textarea>

@@ -2,7 +2,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
 
-           
+            
             <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
                 <div>
                     <h1 class="fw-bold text-dark mb-0">{{ __('ui.revisorDashboard') }}</h1>
@@ -17,7 +17,7 @@
                 @endif
             </div>
 
-            
+           
             @if (session()->has('message'))
                 <div class="alert alert-info alert-dismissible fade show rounded-3 shadow-sm mb-4" role="alert">
                     <i class="bi bi-info-circle-fill me-2"></i> {{ session('message') }}
@@ -29,17 +29,44 @@
                 <div class="card shadow border-0 rounded-4 overflow-hidden bg-white">
                     <div class="row g-0">
                         
-                        
-                        <div class="col-md-5 bg-light d-flex align-items-center justify-content-center" style="min-height: 350px;">
-                            <img src="https://picsum.photos/seed/review{{ $articleToReview->id }}/600/450"
-                                 class="img-fluid h-100 w-100 object-fit-cover"
-                                 alt="Anteprima">
+                       
+                        <div class="col-md-5 bg-light position-relative" style="min-height: 350px;">
+                            <div id="revisorCarousel" class="carousel slide h-100 w-100" data-bs-ride="carousel">
+                                
+                                <div class="carousel-inner h-100 w-100">
+                                    @if($articleToReview->images->count() > 0)
+                                        
+                                        @foreach($articleToReview->images as $key => $image)
+                                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }} h-100 w-100">
+                                                <img src="{{ Storage::url($image->path) }}" class="d-block w-100 h-100 object-fit-cover" style="min-height: 350px;" alt="Anteprima annuncio">
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        
+                                        <div class="carousel-item active h-100 w-100">
+                                            <img src="https://picsum.photos/seed/review{{ $articleToReview->id }}/600/450" class="d-block w-100 h-100 object-fit-cover" style="min-height: 350px;" alt="Anteprima segnaposto">
+                                        </div>
+                                    @endif
+                                </div>
+
+                               
+                                @if($articleToReview->images->count() > 1)
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#revisorCarousel" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Precedente</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#revisorCarousel" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Successivo</span>
+                                    </button>
+                                @endif
+
+                            </div>
                         </div>
                         
-                       
+                        
                         <div class="col-md-7 p-4 d-flex flex-column justify-content-between">
                             <div>
-                                
                                 <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold mb-3">
                                     <i class="bi bi-tag-fill me-1"></i> {{ __('ui.' . $articleToReview->category->name) }}
                                 </span>
@@ -53,7 +80,7 @@
                                 <p class="text-muted lh-base" style="white-space: pre-line;">{{ $articleToReview->description }}</p>
                             </div>
 
-                          
+                           
                             <div class="p-3 bg-light rounded-3 border mb-4 mt-2">
                                 <p class="mb-0 small text-muted">
                                     <i class="bi bi-person-fill me-1"></i> {{ __('ui.publishedBy') }} <strong>{{ $articleToReview->user->name }}</strong>
@@ -63,7 +90,7 @@
                                 </p>
                             </div>
 
-                          
+                           
                             <div class="row g-3">
                                 <div class="col-6">
                                     <button wire:click="rejectArticle({{ $articleToReview->id }})" class="btn btn-danger btn-lg w-100 rounded-pill fw-bold shadow-sm">

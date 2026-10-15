@@ -2,70 +2,101 @@
 
 namespace App\Livewire;
 
+use Livewire\Component;
 use App\Models\Article;
 use App\Models\Category;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
 
 class CreateArticleForm extends Component
 {
-    // Proprietà legate ai campi del form
+    use WithFileUploads;
+
+
     public $title;
     public $description;
     public $price;
     public $category_id;
 
 
+    public $images = [];
+    public $temporary_images;
+
+
     protected $rules = [
-        'title' => 'required|min:4|max:100',
+        'title' => 'required|min:4',
         'description' => 'required|min:10',
-        'price' => 'required|numeric|min:0.01',
-        'category_id' => 'required|exists:categories,id',
+        'price' => 'required|numeric',
+        'category_id' => 'required',
+        'images.*' => 'image|max:2048',
     ];
 
 
-    protected $messages = [
-        'required' => 'Questo campo è obbligatorio.',
-        'numeric' => 'Il prezzo deve essere un numero.',
-        'min' => 'Il valore inserito è troppo corto o basso.',
-    ];
+    public function updatedTemporaryImages()
+    {
+        $this->validate([
+            'temporary_images.*' => 'image|max:2048',
+        ]);
 
+        foreach ($this->temporary_images as $image) {
+            $this->images[] = $image;
+        }
+    }
+
+
+    public function removeImage($key)
+    {
+        if (array_key_exists($key, $this->images)) {
+            unset($this->images[$key]);
+
+            $this->images = array_values($this->images);
+        }
+    }
 
     public function store()
     {
-
         $this->validate();
 
 
-        Article::create([
+        $article = Article::create([
             'title' => $this->title,
             'description' => $this->description,
             'price' => $this->price,
             'category_id' => $this->category_id,
             'user_id' => Auth::id(),
+            'is_accepted' => null,
         ]);
 
 
-        session()->flash('message', 'Annuncio inserito con successo!');
+        if (count($this->images) > 0) {
+            foreach ($this->images as $image) {
+
+                $path = $image->store('articles', 'public');
 
 
+                $article->images()->create([
+                    'path' => $path
+                ]);
+            }
+        }
+
+        session()->flash('message', 'Annuncio inserito con successo! Verrà pubblicato dopo la revisione.');
         $this->cleanForm();
     }
 
-
-    public function cleanForm()
+    private function cleanForm()
     {
         $this->title = '';
         $this->description = '';
         $this->price = '';
         $this->category_id = '';
+        $this->images = [];
+        $this->temporary_images = null;
     }
 
     public function render()
     {
-
-        return view('livewire.create-article-form', [
-            'categories' => Category::all()
-        ]);
+        $categories = Category::all();
+        return view('livewire.create-article-form', compact('categories'));
     }
 }
