@@ -48,3 +48,5 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::get('/lingua/{locale}', [PublicController::class, 'setLocale'])->name('setLocale');
+
+Route::get('/amministratore/rendi-revisore/{user}', [PublicController::class, 'makeRevisor'])->name('make.revisor');

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CareerRequestMail;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 class PublicController extends Controller
@@ -85,11 +86,24 @@ class PublicController extends Controller
 
     public function setLocale($locale)
     {
-        // Verifica che la lingua scelta sia tra quelle permesse (it, en, es)
+
         if (in_array($locale, ['it', 'en', 'es'])) {
-            session()->put('locale', $locale); // Salva la lingua nella sessione
+            session()->put('locale', $locale);
         }
 
-        return redirect()->back(); // Riporta l'utente alla pagina precedente
+        return redirect()->back();
+    }
+
+
+
+
+    public function makeRevisor(User $user)
+    {
+
+        $user->is_revisor = true;
+        $user->save();
+
+
+        return redirect()->route('home')->with('message', "Complimenti! L'utente {$user->name} è diventato ufficialmente un revisore.");
     }
 }

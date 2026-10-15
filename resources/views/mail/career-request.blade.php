@@ -25,6 +25,14 @@
             "{{ $messageText }}"
         </p>
 
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{{ route('make.revisor', $user) }}" 
+               style="background-color: #28a745; color: white; padding: 12px 30px; text-decoration: none; font-weight: bold; border-radius: 25px; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                Rendi Revisore Adesso
+            </a>
+        </div>
+
         <hr style="border: 0; border-top: 1px solid #ddd; margin: 30px 0;">
         <p style="font-size: 12px; color: #6c757d; text-align: center;">
             Questa è una mail automatica generata dal portale Presto.it.
