@@ -7,53 +7,35 @@ use App\Models\Article;
 
 class RevisorDashboard extends Component
 {
+    public $lastEditedArticle;
 
-    public $lastEditedArticle = null;
+    public function mount()
+    {
 
+        $this->lastEditedArticle = session('lastEditedArticle');
+    }
 
     public function acceptArticle($articleId)
     {
-        $article = Article::find($articleId);
-        if ($article) {
-            $article->update(['is_accepted' => true]);
-
-            $this->lastEditedArticle = $article;
-            session()->flash('message', "Annuncio '{$article->title}' accettato con successo.");
-        }
+        return redirect()->route('revisor.accept', ['article' => $articleId]);
     }
-
 
     public function rejectArticle($articleId)
     {
-        $article = Article::find($articleId);
-        if ($article) {
-            $article->update(['is_accepted' => false]);
-
-            $this->lastEditedArticle = $article;
-            session()->flash('message', "Annuncio '{$article->title}' rifiutato.");
-        }
+        return redirect()->route('revisor.reject', ['article' => $articleId]);
     }
-
 
     public function undoLastAction()
     {
-        if ($this->lastEditedArticle) {
-
-            $article = Article::find($this->lastEditedArticle['id']);
-            if ($article) {
-
-                $article->update(['is_accepted' => null]);
-                session()->flash('message', "Operazione annullata. L'annuncio '{$article->title}' è di nuovo in revisione.");
-
-                $this->lastEditedArticle = null;
-            }
-        }
+        return redirect()->route('revisor.undo');
     }
 
     public function render()
     {
+        $articleToReview = Article::where('is_accepted', null)->first();
 
-        $articleToReview = Article::where('is_accepted', null)->oldest()->first();
+
+        $this->lastEditedArticle = session('lastEditedArticle');
 
         return view('livewire.revisor-dashboard', compact('articleToReview'));
     }
