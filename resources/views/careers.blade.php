@@ -5,8 +5,9 @@
                 
                 <div class="card shadow border-0 rounded-4 p-4 bg-white">
                     <div class="text-center mb-4">
-                        <h1 class="fw-bold text-dark">Lavora con noi</h1>
-                        <p class="text-muted">Invia la tua candidatura per entrare nel team dei revisori di Presto.it</p>
+                        
+                        <h1 class="fw-bold text-dark">{{ __('ui.workWithUs') }}</h1>
+                        <p class="text-muted">{{ __('ui.careersSubtitle') }}</p>
                     </div>
 
                     <form action="{{ route('careers.submit') }}" method="POST">
@@ -14,19 +15,20 @@
 
                        
                         <div class="mb-3">
-                            <label class="form-label fw-semibold text-secondary">Il tuo Nome</label>
+                            <label class="form-label fw-semibold text-secondary">{{ __('ui.yourName') }}</label>
                             <input type="text" class="form-control bg-light" value="{{ Auth::user()->name }}" readonly>
                         </div>
 
+                        
                         <div class="mb-3">
-                            <label class="form-label fw-semibold text-secondary">La tua Email</label>
+                            <label class="form-label fw-semibold text-secondary">{{ __('ui.yourEmail') }}</label>
                             <input type="email" class="form-control bg-light" value="{{ Auth::user()->email }}" readonly>
                         </div>
 
                        
                         <div class="mb-4">
-                            <label for="message" class="form-label fw-semibold">Perché vuoi diventare un revisore? (Lettera di presentazione)</label>
-                            <textarea id="message" name="message" rows="5" class="form-control rounded-3 @error('message') is-invalid @enderror" placeholder="Raccontaci brevemente le tue motivazioni...">{{ old('message') }}</textarea>
+                            <label for="message" class="form-label fw-semibold">{{ __('ui.whyRevisor') }}</label>
+                            <textarea id="message" name="message" rows="5" class="form-control rounded-3 @error('message') is-invalid @enderror" placeholder="{{ __('ui.placeholderMotivations') }}">{{ old('message') }}</textarea>
                             @error('message')
                                 <div class="invalid-feedback fw-medium">
                                     {{ $message }}
@@ -34,8 +36,9 @@
                             @enderror
                         </div>
 
+                       
                         <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill fw-bold shadow-sm">
-                            <i class="bi bi-send-fill me-2"></i> Invia la Candidatura
+                            <i class="bi bi-send-fill me-2"></i> {{ __('ui.sendApplication') }}
                         </button>
                     </form>
                 </div>

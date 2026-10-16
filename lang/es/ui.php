@@ -66,4 +66,11 @@ return [
     'createAnArticle' => 'Crear un artículo',
 
 
+    'careersSubtitle' => 'Envíe su solicitud para unirse al equipo de revisores de Presto.it',
+    'yourName' => 'Tu Nombre',
+    'yourEmail' => 'Tu Correo electrónico',
+    'whyRevisor' => '¿Por qué quieres convertirte en revisor? (Carta de presentación)',
+    'placeholderMotivations' => 'Cuéntanos brevemente tus motivaciones...',
+    'sendApplication' => 'Enviar Candidatura',
+
 ];

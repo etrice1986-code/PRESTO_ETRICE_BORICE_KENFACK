@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Jobs\ResizeImage;
 use Livewire\Component;
 use App\Models\Article;
 use App\Models\Category;
@@ -68,6 +69,7 @@ class CreateArticleForm extends Component
         ]);
 
 
+
         if (count($this->images) > 0) {
             foreach ($this->images as $image) {
 
@@ -77,8 +79,12 @@ class CreateArticleForm extends Component
                 $article->images()->create([
                     'path' => $path
                 ]);
+
+
+                ResizeImage::dispatch($path, 300, 300);
             }
         }
+
 
         session()->flash('message', 'Annuncio inserito con successo! Verrà pubblicato dopo la revisione.');
         $this->cleanForm();

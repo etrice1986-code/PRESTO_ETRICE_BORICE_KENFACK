@@ -64,6 +64,12 @@ return [
     'createArticleHeading' => 'Post your article',
     'workWithUs' => 'Work with us',
     'createAnArticle' => 'Create an article',
+    'careersSubtitle' => 'Submit your application to join the Presto.it review team',
+    'yourName' => 'Your Name',
+    'yourEmail' => 'Your Email',
+    'whyRevisor' => 'Why do you want to become a reviewer? (Cover letter)',
+    'placeholderMotivations' => 'Tell us briefly about your motivations...',
+    'sendApplication' => 'Submit Application',
 
 
 ];

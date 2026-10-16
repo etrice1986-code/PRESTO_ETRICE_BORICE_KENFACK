@@ -64,6 +64,12 @@ return [
     'workWithUs' => 'Lavora con noi',
     'createAnArticle' => 'Crea un articolo',
 
+    'careersSubtitle' => 'Invia la tua candidatura per entrare nel team dei revisori di Presto.it',
+    'yourName' => 'Il tuo Nome',
+    'yourEmail' => 'La tua Email',
+    'whyRevisor' => 'Perché vuoi diventare un revisore? (Lettera di presentazione)',
+    'placeholderMotivations' => 'Raccontaci brevemente le tue motivazioni...',
+    'sendApplication' => 'Invia la Candidatura',
 
 
 
