@@ -71,32 +71,73 @@
                                 <p class="text-secondary fw-semibold mb-1" style="font-size: 14px;">{{ __('ui.descriptionTitle') }}:</p>
                                 <p class="text-muted lh-base mb-3" style="white-space: pre-line;">{{ $articleToReview->description }}</p>
 
-                                
-                                <div class="p-3 bg-light border rounded-3 mb-3">
-                                    <h6 class="fw-bold text-dark mb-2 small text-uppercase"><i class="bi bi-cpu-fill text-warning me-1"></i> Revisione IA Immagini</h6>
-                                    @if($articleToReview->images && $articleToReview->images->count() > 0)
-                                        @foreach($articleToReview->images as $index => $img)
-                                            <div class="mb-2 {{ !$loop->last ? 'border-bottom pb-2' : '' }}">
-                                                <p class="text-secondary fw-bold mb-1 small">Img #{{ $index + 1 }}</p>
-                                                <div class="d-flex flex-wrap gap-1 mb-1">
-                                                    <span class="badge bg-{{ $img->adult == 'VERY_LIKELY' || $img->adult == 'LIKELY' ? 'danger' : 'success' }}" style="font-size: 0.65rem;">Adulti: {{ $img->adult ?? 'N/D' }}</span>
-                                                    <span class="badge bg-{{ $img->spoof == 'VERY_LIKELY' || $img->spoof == 'LIKELY' ? 'danger' : 'success' }}" style="font-size: 0.65rem;">Satira: {{ $img->spoof ?? 'N/D' }}</span>
-                                                    <span class="badge bg-{{ $img->medical == 'VERY_LIKELY' || $img->medical == 'LIKELY' ? 'danger' : 'success' }}" style="font-size: 0.65rem;">Medicina: {{ $img->medical ?? 'N/D' }}</span>
-                                                    <span class="badge bg-{{ $img->violence == 'VERY_LIKELY' || $img->violence == 'LIKELY' ? 'danger' : 'success' }}" style="font-size: 0.65rem;">Violenza: {{ $img->violence ?? 'N/D' }}</span>
-                                                </div>
-                                                @if($img->labels)
-                                                    <div class="d-flex flex-wrap gap-1">
-                                                        @foreach($img->labels as $label)
-                                                            <span class="badge bg-secondary text-white rounded-pill px-1.5 py-0.5" style="font-size: 0.6rem;">{{ $label }}</span>
-                                                        @endforeach
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        @endforeach
-                                    @else
-                                        <p class="text-muted small fst-italic mb-0">Nessuna immagine associata a questo annuncio. Controllo IA non necessario.</p>
-                                    @endif
-                                </div>
+                        <div class="p-3 bg-light border rounded-3 mb-3">
+                        <h6 class="fw-bold text-dark mb-2 small text-uppercase">
+                            <i class="bi bi-cpu-fill text-warning me-1"></i> Revisione IA Immagini
+                        </h6>
+
+                        @php
+                        $likeliHoodName = [
+                            'UNKNOWN'       => ['bg' => 'secondary', 'icon' => 'bi-circle-fill'],
+                            'VERY_UNLIKELY' => ['bg' => 'success',   'icon' => 'bi-check-circle-fill'],
+                            'UNLIKELY'      => ['bg' => 'success',   'icon' => 'bi-check-circle-fill'],
+                            'POSSIBLE'      => ['bg' => 'warning',   'icon' => 'bi-exclamation-circle-fill'],
+                            'LIKELY'        => ['bg' => 'warning',   'icon' => 'bi-exclamation-circle-fill'],
+                            'VERY_LIKELY'   => ['bg' => 'danger',    'icon' => 'bi-dash-circle-fill'],
+                        ];
+                       @endphp
+
+                    @if($articleToReview->images && $articleToReview->images->count() > 0)
+                        @foreach($articleToReview->images as $index => $img)
+                            <div class="mb-2 {{ !$loop->last ? 'border-bottom pb-2' : '' }}">  
+                             <p class="text-secondary fw-bold mb-1 small">Img #{{ $index + 1 }}</p>
+
+                     <div class="d-flex flex-wrap gap-2 mb-2">
+                    <span class="badge px-3 py-1 bg-{{ $likeliHoodName[$img->adult]['bg'] }} text-white rounded-pill d-flex align-items-center gap-2" style="font-size: 0.85rem;">
+                        <i class="bi {{ $likeliHoodName[$img->adult]['icon'] }}" style="font-size: 1.3rem;"></i>
+                        Adulti
+                    </span>
+
+                    <span class="badge px-3 py-1 bg-{{ $likeliHoodName[$img->spoof]['bg'] }} text-white rounded-pill d-flex align-items-center gap-2" style="font-size: 0.85rem;">
+                        <i class="bi {{ $likeliHoodName[$img->spoof]['icon'] }}" style="font-size: 1.3rem;"></i>
+                        Satira
+                    </span>
+
+                    <span class="badge px-3 py-1 bg-{{ $likeliHoodName[$img->medical]['bg'] }} text-white rounded-pill d-flex align-items-center gap-2" style="font-size: 0.85rem;">
+                        <i class="bi {{ $likeliHoodName[$img->medical]['icon'] }}" style="font-size: 1.3rem;"></i>
+                        Medicina
+                    </span>
+
+                    <span class="badge px-3 py-1 bg-{{ $likeliHoodName[$img->violence]['bg'] }} text-white rounded-pill d-flex align-items-center gap-2" style="font-size: 0.85rem;">
+                        <i class="bi {{ $likeliHoodName[$img->violence]['icon'] }}" style="font-size: 1.3rem;"></i>
+                        Violenza
+                    </span>
+
+                    <span class="badge px-3 py-1 bg-{{ $likeliHoodName[$img->racy]['bg'] }} text-white rounded-pill d-flex align-items-center gap-2" style="font-size: 0.85rem;">
+                        <i class="bi {{ $likeliHoodName[$img->racy]['icon'] }}" style="font-size: 1.3rem;"></i>
+                        Racy
+                    </span>
+                </div>
+
+                @if($img->labels)
+                    <div class="d-flex flex-wrap gap-1">
+                        @foreach($img->labels as $label)
+                            <span class="badge bg-secondary text-white rounded-pill px-1.5 py-0.5" style="font-size: 0.6rem;">
+                                {{ $label }}
+                            </span>
+                        @endforeach
+                    </div>
+                @endif
+
+             </div>
+              @endforeach
+                @else
+                    <p class="text-muted small fst-italic mb-0">
+                        Nessuna immagine associata a questo annuncio. Controllo IA non necessario.
+                    </p>
+             @endif
+            </div>
+
                             </div>
 
                             <div class="p-3 bg-light rounded-3 border mb-4 mt-2">

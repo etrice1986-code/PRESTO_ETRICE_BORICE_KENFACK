@@ -2,55 +2,81 @@
 
 namespace App\Jobs;
 
-use App\Models\Image as ImageModel;
+use App\Models\Image;
+use Google\Cloud\Vision\V1\AnnotateImageRequest;
+use Google\Cloud\Vision\V1\BatchAnnotateImagesRequest;
 use Google\Cloud\Vision\V1\Client\ImageAnnotatorClient;
+use Google\Cloud\Vision\V1\Feature;
+use Google\Cloud\Vision\V1\Feature\Type;
+use Google\Cloud\Vision\V1\Image as VisionImage;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 
 class GoogleVisionSafeSearch implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Queueable;
 
-    protected $image_id;
-
+    private $image_id;
 
     public function __construct($image_id)
     {
         $this->image_id = $image_id;
     }
 
-
     public function handle(): void
     {
-        $image = ImageModel::find($this->image_id);
-        if (!$image) {
+        $i = Image::find($this->image_id);
+        if (!$i) {
             return;
         }
 
-        $imagePath = storage_path('app/public/' . $image->path);
-        $imageContents = file_get_contents($imagePath);
+
+        $image = file_get_contents(storage_path('app/public/' . $i->path));
+
+        putenv('GOOGLE_APPLICATION_CREDENTIALS=' . base_path('storage/app/google_credential.json'));
+
+        $googleVisionClient = new ImageAnnotatorClient();
 
 
-        $imageAnnotator = new ImageAnnotatorClient();
-        $response = $imageAnnotator->safeSearchDetection($imageContents);
-        $safeSearch = $response->getSafeSearchAnnotation();
+        $google_image = new VisionImage([
+            'content' => $image
+        ]);
 
-        if ($safeSearch) {
 
-            $likelihoods = ['UNKNOWN', 'VERY_UNLIKELY', 'UNLIKELY', 'POSSIBLE', 'LIKELY', 'VERY_LIKELY'];
+        $googleFeature = new Feature();
+        $googleFeature->setType(Type::SAFE_SEARCH_DETECTION);
 
-            $image->update([
-                'adult'    => $likelihoods[$safeSearch->getAdult()],
-                'spoof'    => $likelihoods[$safeSearch->getSpoof()],
-                'medical'  => $likelihoods[$safeSearch->getMedical()],
-                'violence' => $likelihoods[$safeSearch->getViolence()],
-                'racy'     => $likelihoods[$safeSearch->getRacy()],
-            ]);
-        }
 
-        $imageAnnotator->close();
+        $request = new AnnotateImageRequest();
+        $request->setImage($google_image);
+        $request->setFeatures([$googleFeature]);
+
+
+        $batchRequest = new BatchAnnotateImagesRequest();
+        $batchRequest->setRequests([$request]);
+
+
+        $responseBatch = $googleVisionClient->batchAnnotateImages($batchRequest);
+        $response = $responseBatch->getResponses()[0];
+
+        $googleVisionClient->close();
+
+
+        $safeSearchAnnotation = $response->getSafeSearchAnnotation();
+
+        $adult = $safeSearchAnnotation->getAdult();
+        $spoof = $safeSearchAnnotation->getSpoof();
+        $medical = $safeSearchAnnotation->getMedical();
+        $violence = $safeSearchAnnotation->getViolence();
+        $racy = $safeSearchAnnotation->getRacy();
+
+
+        $i->adult = $adult;
+        $i->spoof = $spoof;
+        $i->medical = $medical;
+        $i->violence = $violence;
+        $i->racy = $racy;
+
+        $i->save();
     }
 }
