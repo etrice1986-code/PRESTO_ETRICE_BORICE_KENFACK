@@ -7,6 +7,7 @@ use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Image\Image;
 use Spatie\Image\Enums\CropPosition;
 
@@ -14,26 +15,45 @@ class ResizeImage implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $path;
-    protected $fileName;
-    protected $w;
-    protected $h;
+    protected string $filePath;
 
-    public function __construct($filePath, $w, $h)
+
+    public function __construct(string $filePath)
     {
-        $this->path = dirname($filePath);
-        $this->fileName = basename($filePath);
-        $this->w = $w;
-        $this->h = $h;
+        $this->filePath = $filePath;
     }
 
     public function handle(): void
     {
-        $srcPath = storage_path('app/public/' . $this->path . '/' . $this->fileName);
-        $destPath = storage_path('app/public/' . $this->path . '/crop_' . $this->w . 'x' . $this->h . '_' . $this->fileName);
 
-        Image::load($srcPath)
-            ->crop($this->w, $this->h, CropPosition::Center)
-            ->save($destPath);
+        $disk = Storage::disk('public');
+
+        if (!$disk->exists($this->filePath)) {
+            return;
+        }
+
+
+        $srcPath = $disk->path($this->filePath);
+
+        $pathInfo = pathinfo($this->filePath);
+        $dirname = $pathInfo['dirname'] === '.' ? '' : $pathInfo['dirname'] . '/';
+        $fileName = $pathInfo['basename'];
+
+        $sizes = [
+            [300, 300],
+            [400, 300],
+            [600, 400],
+            [800, 600],
+        ];
+
+        foreach ($sizes as [$w, $h]) {
+
+            $newFileName = $dirname . 'crop_' . $w . 'x' . $h . '_' . $fileName;
+            $destPath = $disk->path($newFileName);
+
+            Image::load($srcPath)
+                ->crop($w, $h, CropPosition::Center)
+                ->save($destPath);
+        }
     }
 }

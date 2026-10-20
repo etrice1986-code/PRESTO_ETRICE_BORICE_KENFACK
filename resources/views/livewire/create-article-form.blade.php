@@ -46,8 +46,16 @@
         <div class="mb-3">
             <label for="temporary_images" class="form-label fw-semibold">Immagini dell'annuncio</label>
             
-            <input type="file" id="temporary_images" wire:model="temporary_images" class="form-control @error('images.*') is-invalid @enderror" multiple>
-            @error('images.*') <span class="text-danger small">{{ $message }}</span> @enderror
+            <input type="file"
+            id="temporary_images"
+            wire:model="temporary_images"
+            name="temporary_images[]"
+            class="form-control @error('temporary_images.*') is-invalid @enderror"
+            multiple>
+
+            @error('temporary_images.*')
+            <span class="text-danger small">{{ $message }}</span>
+            @enderror
         </div>
 
         

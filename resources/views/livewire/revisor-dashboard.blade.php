@@ -1,15 +1,11 @@
 <div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-
-            
+    <div class="row justify-content-center ">
+        <div class="col-11 ">
             <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
                 <div>
                     <h1 class="fw-bold text-dark mb-0">{{ __('ui.revisorDashboard') }}</h1>
                     <p class="text-muted mb-0">{{ __('ui.revisorSubtitle') }}</p>
                 </div>
-                
-                
                 @if($lastEditedArticle)
                     <button wire:click="undoLastAction" class="btn btn-warning rounded-pill fw-semibold px-4 shadow-sm">
                         <i class="bi bi-arrow-counterclockwise me-1"></i> {{ __('ui.undoAction') }}
@@ -17,7 +13,6 @@
                 @endif
             </div>
 
-           
             @if (session()->has('message'))
                 <div class="alert alert-info alert-dismissible fade show rounded-3 shadow-sm mb-4" role="alert">
                     <i class="bi bi-info-circle-fill me-2"></i> {{ session('message') }}
@@ -25,90 +20,102 @@
             @endif
 
             @if($articleToReview)
-                
                 <div class="card shadow border-0 rounded-4 overflow-hidden bg-white">
                     <div class="row g-0">
-                        
-                       
-                        <div class="col-md-5 bg-light position-relative" style="min-height: 350px;">
-                            <div id="revisorCarousel" class="carousel slide h-100 w-100" data-bs-ride="carousel">
-                                
-                                <div class="carousel-inner h-100 w-100">
-                                    @if($articleToReview->images->count() > 0)
-                                        
-                                        @foreach($articleToReview->images as $key => $image)
-                                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }} h-100 w-100">
-                                                <img src="{{ Storage::url($image->path) }}" class="d-block w-100 h-100 object-fit-cover" style="min-height: 350px;" alt="Anteprima annuncio">
-                                            </div>
-                                        @endforeach
-                                    @else
-                                        
-                                        <div class="carousel-item active h-100 w-100">
-                                            <img src="https://picsum.photos/seed/review{{ $articleToReview->id }}/600/450" class="d-block w-100 h-100 object-fit-cover" style="min-height: 350px;" alt="Anteprima segnaposto">
+                       <div class="col-md-5">
+
+                        <div id="revisorCarousel" class="carousel slide shadow rounded-4 overflow-hidden" data-bs-ride="carousel">
+
+                            <div class="carousel-inner" style="height: 400px;">
+                                @if($articleToReview->images->count() > 0)
+                                    @foreach($articleToReview->images as $key => $image)
+                                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }} h-100 w-100">
+                                        <img src="{{ $image->getUrl(400, 300) }}"
+                                        class="d-block w-100 h-100 object-fit-cover"
+                                        alt="Foto {{ $articleToReview->title }}">
+
                                         </div>
-                                    @endif
-                                </div>
-
-                               
-                                @if($articleToReview->images->count() > 1)
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#revisorCarousel" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Precedente</span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#revisorCarousel" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Successivo</span>
-                                    </button>
+                                    @endforeach
+                                @else
+                                    <div class="carousel-item active h-100 w-100">
+                                        <img src="https://picsum.photos/seed/{{ $articleToReview->id }}/600/450"
+                                            class="d-block w-100 h-100 object-fit-cover"
+                                            alt="Immagine segnaposto">
+                                    </div>
                                 @endif
-
                             </div>
+
+                            @if($articleToReview->images->count() > 1)
+                                <button class="carousel-control-prev" type="button" data-bs-target="#revisorCarousel" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span>
+                                </button>
+
+                                <button class="carousel-control-next" type="button" data-bs-target="#revisorCarousel" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon"></span>
+                                </button>
+                            @endif
+
                         </div>
+
+                    </div>
+
                         
-                        
-                        <div class="col-md-7 p-4 d-flex flex-column justify-content-between">
+                        <div class="col-md-6 p-4 d-flex flex-column justify-content-between">
                             <div>
                                 <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold mb-3">
                                     <i class="bi bi-tag-fill me-1"></i> {{ __('ui.' . $articleToReview->category->name) }}
                                 </span>
-                                
                                 <h2 class="fw-bold text-dark mb-1">{{ $articleToReview->title }}</h2>
                                 <h3 class="fw-bold text-success mb-3">{{ number_format($articleToReview->price, 2, ',', '.') }} €</h3>
-                                
                                 <hr class="text-muted">
-                                
                                 <p class="text-secondary fw-semibold mb-1" style="font-size: 14px;">{{ __('ui.descriptionTitle') }}:</p>
-                                <p class="text-muted lh-base" style="white-space: pre-line;">{{ $articleToReview->description }}</p>
+                                <p class="text-muted lh-base mb-3" style="white-space: pre-line;">{{ $articleToReview->description }}</p>
+
+                                
+                                <div class="p-3 bg-light border rounded-3 mb-3">
+                                    <h6 class="fw-bold text-dark mb-2 small text-uppercase"><i class="bi bi-cpu-fill text-warning me-1"></i> Revisione IA Immagini</h6>
+                                    @if($articleToReview->images && $articleToReview->images->count() > 0)
+                                        @foreach($articleToReview->images as $index => $img)
+                                            <div class="mb-2 {{ !$loop->last ? 'border-bottom pb-2' : '' }}">
+                                                <p class="text-secondary fw-bold mb-1 small">Img #{{ $index + 1 }}</p>
+                                                <div class="d-flex flex-wrap gap-1 mb-1">
+                                                    <span class="badge bg-{{ $img->adult == 'VERY_LIKELY' || $img->adult == 'LIKELY' ? 'danger' : 'success' }}" style="font-size: 0.65rem;">Adulti: {{ $img->adult ?? 'N/D' }}</span>
+                                                    <span class="badge bg-{{ $img->spoof == 'VERY_LIKELY' || $img->spoof == 'LIKELY' ? 'danger' : 'success' }}" style="font-size: 0.65rem;">Satira: {{ $img->spoof ?? 'N/D' }}</span>
+                                                    <span class="badge bg-{{ $img->medical == 'VERY_LIKELY' || $img->medical == 'LIKELY' ? 'danger' : 'success' }}" style="font-size: 0.65rem;">Medicina: {{ $img->medical ?? 'N/D' }}</span>
+                                                    <span class="badge bg-{{ $img->violence == 'VERY_LIKELY' || $img->violence == 'LIKELY' ? 'danger' : 'success' }}" style="font-size: 0.65rem;">Violenza: {{ $img->violence ?? 'N/D' }}</span>
+                                                </div>
+                                                @if($img->labels)
+                                                    <div class="d-flex flex-wrap gap-1">
+                                                        @foreach($img->labels as $label)
+                                                            <span class="badge bg-secondary text-white rounded-pill px-1.5 py-0.5" style="font-size: 0.6rem;">{{ $label }}</span>
+                                                        @endforeach
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <p class="text-muted small fst-italic mb-0">Nessuna immagine associata a questo annuncio. Controllo IA non necessario.</p>
+                                    @endif
+                                </div>
                             </div>
 
-                           
                             <div class="p-3 bg-light rounded-3 border mb-4 mt-2">
-                                <p class="mb-0 small text-muted">
-                                    <i class="bi bi-person-fill me-1"></i> {{ __('ui.publishedBy') }} <strong>{{ $articleToReview->user->name }}</strong>
-                                </p>
-                                <p class="mb-0 small text-muted">
-                                    <i class="bi bi-calendar-event me-1"></i> {{ __('ui.publishedOn') }}: {{ $articleToReview->created_at->format('d/m/Y H:i') }}
-                                </p>
+                                <p class="mb-0 small text-muted"><i class="bi bi-person-fill me-1"></i> {{ __('ui.publishedBy') }} <strong>{{ $articleToReview->user->name }}</strong></p>
+                                <p class="mb-0 small text-muted"><i class="bi bi-calendar-event me-1"></i> {{ __('ui.publishedOn') }}: {{ $articleToReview->created_at->format('d/m/Y H:i') }}</p>
                             </div>
 
-                           
                             <div class="row g-3">
                                 <div class="col-6">
-                                    <button wire:click="rejectArticle({{ $articleToReview->id }})" class="btn btn-danger btn-lg w-100 rounded-pill fw-bold shadow-sm">
-                                        <i class="bi bi-x-circle me-2"></i> {{ __('ui.reject') }}
-                                    </button>
+                                    <button wire:click="rejectArticle({{ $articleToReview->id }})" class="btn btn-danger btn-lg w-100 rounded-pill fw-bold shadow-sm"><i class="bi bi-x-circle me-2"></i> {{ __('ui.reject') }}</button>
                                 </div>
                                 <div class="col-6">
-                                    <button wire:click="acceptArticle({{ $articleToReview->id }})" class="btn btn-success btn-lg w-100 rounded-pill fw-bold shadow-sm">
-                                        <i class="bi bi-check-circle me-2"></i> {{ __('ui.accept') }}
-                                    </button>
+                                    <button wire:click="acceptArticle({{ $articleToReview->id }})" class="btn btn-success btn-lg w-100 rounded-pill fw-bold shadow-sm"><i class="bi bi-check-circle me-2"></i> {{ __('ui.accept') }}</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             @else
-                
                 <div class="text-center py-5">
                     <div class="p-5 border rounded-4 bg-light shadow-sm max-width-md mx-auto" style="max-width: 550px;">
                         <i class="bi bi-check-all text-success display-1 mb-3"></i>
@@ -117,7 +124,6 @@
                     </div>
                 </div>
             @endif
-
         </div>
     </div>
 </div>

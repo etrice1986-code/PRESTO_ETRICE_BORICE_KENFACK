@@ -2,12 +2,14 @@
 
 namespace App\Livewire;
 
+use App\Jobs\GoogleVisionSafeSearch;
+use App\Jobs\GoogleVisionLabelImage;
 use App\Jobs\ResizeImage;
-use Livewire\Component;
 use App\Models\Article;
 use App\Models\Category;
-use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class CreateArticleForm extends Component
 {
@@ -37,12 +39,16 @@ class CreateArticleForm extends Component
     {
         $this->validate([
             'temporary_images.*' => 'image|max:2048',
+        ], [
+            'temporary_images.*.max' => 'L\'immagine è troppo grande (max 2MB).',
+            'temporary_images.*.image' => 'Il file deve essere un\'immagine.',
         ]);
 
         foreach ($this->temporary_images as $image) {
             $this->images[] = $image;
         }
     }
+
 
 
     public function removeImage($key)
@@ -69,19 +75,18 @@ class CreateArticleForm extends Component
         ]);
 
 
-
         if (count($this->images) > 0) {
             foreach ($this->images as $image) {
-
                 $path = $image->store('articles', 'public');
-
-
-                $article->images()->create([
+                $newImage = $article->images()->create([
                     'path' => $path
                 ]);
 
 
-                ResizeImage::dispatch($path, 300, 300);
+                ResizeImage::dispatch($path);
+
+                GoogleVisionSafeSearch::dispatch($newImage->id);
+                GoogleVisionLabelImage::dispatch($newImage->id);
             }
         }
 

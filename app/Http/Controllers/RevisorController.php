@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CareerRequestMail;
 use App\Models\Article;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class RevisorController extends Controller
 {
@@ -55,6 +58,35 @@ class RevisorController extends Controller
         }
 
         return redirect()->back();
+    }
+
+
+
+
+
+    public function careers()
+    {
+        return view('careers');
+    }
+
+
+
+    public function careersSubmit(Request $request)
+    {
+        $request->validate([
+            'message' => 'required|min:20',
+        ], [
+            'required' => 'Il messaggio di presentazione è obbligatorio.',
+            'min' => 'Il messaggio deve contenere almeno 20 caratteri.',
+        ]);
+
+        $user = Auth::user();
+        $messageText = $request->input('message');
+
+        Mail::to('admin@presto.it')->send(new CareerRequestMail($user, $messageText));
+
+        return redirect()->route('home')
+            ->with('message', 'La tua richiesta è stata inviata con successo! Verrai ricontattato via email.');
     }
 
 

@@ -2,8 +2,8 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
 use App\Models\Article;
+use Livewire\Component;
 
 class RevisorDashboard extends Component
 {
@@ -11,7 +11,6 @@ class RevisorDashboard extends Component
 
     public function mount()
     {
-
         $this->lastEditedArticle = session('lastEditedArticle');
     }
 
@@ -33,8 +32,6 @@ class RevisorDashboard extends Component
     public function render()
     {
         $articleToReview = Article::where('is_accepted', null)->first();
-
-
         $this->lastEditedArticle = session('lastEditedArticle');
 
         return view('livewire.revisor-dashboard', compact('articleToReview'));

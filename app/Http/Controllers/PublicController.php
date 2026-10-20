@@ -22,28 +22,6 @@ class PublicController extends Controller
         return view('welcome', compact('articles'));
     }
 
-    public function careers()
-    {
-        return view('careers');
-    }
-
-    public function careersSubmit(Request $request)
-    {
-        $request->validate([
-            'message' => 'required|min:20',
-        ], [
-            'required' => 'Il messaggio di presentazione è obbligatorio.',
-            'min' => 'Il messaggio deve contenere almeno 20 caratteri.',
-        ]);
-
-        $user = Auth::user();
-        $messageText = $request->input('message');
-
-        Mail::to('admin@presto.it')->send(new CareerRequestMail($user, $messageText));
-
-        return redirect()->route('home')
-            ->with('message', 'La tua richiesta è stata inviata con successo! Verrai ricontattato via email.');
-    }
 
 
     public function setLocale($locale)
