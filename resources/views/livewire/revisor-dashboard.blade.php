@@ -76,67 +76,32 @@
                             <i class="bi bi-cpu-fill text-warning me-1"></i> Revisione IA Immagini
                         </h6>
 
-                        @php
-                        $likeliHoodName = [
-                            'UNKNOWN'       => ['bg' => 'secondary', 'icon' => 'bi-circle-fill'],
-                            'VERY_UNLIKELY' => ['bg' => 'success',   'icon' => 'bi-check-circle-fill'],
-                            'UNLIKELY'      => ['bg' => 'success',   'icon' => 'bi-check-circle-fill'],
-                            'POSSIBLE'      => ['bg' => 'warning',   'icon' => 'bi-exclamation-circle-fill'],
-                            'LIKELY'        => ['bg' => 'warning',   'icon' => 'bi-exclamation-circle-fill'],
-                            'VERY_LIKELY'   => ['bg' => 'danger',    'icon' => 'bi-dash-circle-fill'],
-                        ];
-                       @endphp
-
-                    @if($articleToReview->images && $articleToReview->images->count() > 0)
+                                         @if($articleToReview->images && $articleToReview->images->count() > 0)
                         @foreach($articleToReview->images as $index => $img)
                             <div class="mb-2 {{ !$loop->last ? 'border-bottom pb-2' : '' }}">  
-                             <p class="text-secondary fw-bold mb-1 small">Img #{{ $index + 1 }}</p>
+                                <p class="text-secondary fw-bold mb-1 small">Img #{{ $index + 1 }}</p>
 
-                     <div class="d-flex flex-wrap gap-2 mb-2">
-                    <span class="badge px-3 py-1 bg-{{ $likeliHoodName[$img->adult]['bg'] }} text-white rounded-pill d-flex align-items-center gap-2" style="font-size: 0.85rem;">
-                        <i class="bi {{ $likeliHoodName[$img->adult]['icon'] }}" style="font-size: 1.3rem;"></i>
-                        Adulti
-                    </span>
+                                <!-- Componente  badge  -->
+                                <x-image-review-badges :img="$img" />
 
-                    <span class="badge px-3 py-1 bg-{{ $likeliHoodName[$img->spoof]['bg'] }} text-white rounded-pill d-flex align-items-center gap-2" style="font-size: 0.85rem;">
-                        <i class="bi {{ $likeliHoodName[$img->spoof]['icon'] }}" style="font-size: 1.3rem;"></i>
-                        Satira
-                    </span>
-
-                    <span class="badge px-3 py-1 bg-{{ $likeliHoodName[$img->medical]['bg'] }} text-white rounded-pill d-flex align-items-center gap-2" style="font-size: 0.85rem;">
-                        <i class="bi {{ $likeliHoodName[$img->medical]['icon'] }}" style="font-size: 1.3rem;"></i>
-                        Medicina
-                    </span>
-
-                    <span class="badge px-3 py-1 bg-{{ $likeliHoodName[$img->violence]['bg'] }} text-white rounded-pill d-flex align-items-center gap-2" style="font-size: 0.85rem;">
-                        <i class="bi {{ $likeliHoodName[$img->violence]['icon'] }}" style="font-size: 1.3rem;"></i>
-                        Violenza
-                    </span>
-
-                    <span class="badge px-3 py-1 bg-{{ $likeliHoodName[$img->racy]['bg'] }} text-white rounded-pill d-flex align-items-center gap-2" style="font-size: 0.85rem;">
-                        <i class="bi {{ $likeliHoodName[$img->racy]['icon'] }}" style="font-size: 1.3rem;"></i>
-                        Racy
-                    </span>
-                </div>
-
-                @if($img->labels)
-                    <div class="d-flex flex-wrap gap-1">
-                        @foreach($img->labels as $label)
-                            <span class="badge bg-secondary text-white rounded-pill px-1.5 py-0.5" style="font-size: 0.6rem;">
-                                {{ $label }}
-                            </span>
+                                @if($img->labels)
+                                    <div class="d-flex flex-wrap gap-1">
+                                        @foreach($img->labels as $label)
+                                            <span class="badge bg-secondary text-white rounded-pill px-1.5 py-0.5" style="font-size: 0.6rem;">
+                                                {{ $label }}
+                                            </span>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
                         @endforeach
-                    </div>
-                @endif
+                    @else
+                        <p class="text-muted small fst-italic mb-0">
+                            Nessuna immagine disponibile per la revisione IA.
+                        </p>
+                    @endif
 
-             </div>
-              @endforeach
-                @else
-                    <p class="text-muted small fst-italic mb-0">
-                        Nessuna immagine associata a questo annuncio. Controllo IA non necessario.
-                    </p>
-             @endif
-            </div>
+                        </div>
 
                             </div>
 

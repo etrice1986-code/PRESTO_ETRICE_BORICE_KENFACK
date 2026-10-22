@@ -6,8 +6,10 @@ use App\Mail\CareerRequestMail;
 use App\Models\Article;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+
 
 class RevisorController extends Controller
 {
@@ -92,9 +94,12 @@ class RevisorController extends Controller
 
     public function makeRevisor(User $user)
     {
-        $user->update(['is_revisor' => true]);
+        Artisan::call(
+            'presto:make-user-revisor',
+            ['email' => $user->email]
+        );
 
-        return redirect()->route('home')
+        return redirect()->back()
             ->with('message', "Complimenti! L'utente {$user->name} è ora revisore.");
     }
 }
