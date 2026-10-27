@@ -3,13 +3,16 @@
 namespace App\Jobs;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
-use Spatie\Image\Image;
 use Spatie\Image\Enums\CropPosition;
+use Spatie\Image\Enums\Unit;
+use Spatie\Image\Image;
+use Spatie\Image\Enums\AlignPosition;
+
 
 class ResizeImage implements ShouldQueue
 {
@@ -23,15 +26,16 @@ class ResizeImage implements ShouldQueue
         $this->filePath = $filePath;
     }
 
+
+
+
     public function handle(): void
     {
-
         $disk = Storage::disk('public');
 
         if (!$disk->exists($this->filePath)) {
             return;
         }
-
 
         $srcPath = $disk->path($this->filePath);
 
@@ -46,13 +50,21 @@ class ResizeImage implements ShouldQueue
             [800, 600],
         ];
 
-        foreach ($sizes as [$w, $h]) {
 
+        foreach ($sizes as [$w, $h]) {
             $newFileName = $dirname . 'crop_' . $w . 'x' . $h . '_' . $fileName;
             $destPath = $disk->path($newFileName);
 
             Image::load($srcPath)
                 ->crop($w, $h, CropPosition::Center)
+                ->watermark(
+                    base_path('resources/img/watermark.png'),
+                    width: 50,
+                    height: 50,
+                    paddingX: 20,
+                    paddingY: 20,
+                    paddingUnit: Unit::Percent
+                )
                 ->save($destPath);
         }
     }

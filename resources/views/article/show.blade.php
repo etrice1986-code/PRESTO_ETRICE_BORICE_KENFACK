@@ -29,15 +29,17 @@
                         </div>
                     @endif
 
-                                        <div class="carousel-inner" style="height: 400px;">
+                     <div class="carousel-inner" style="height: 400px;">
 
                         @if($article->images->count() > 0)
                             @foreach($article->images as $key => $image)
                                 
                                 <div class="carousel-item {{ $key == 0 ? 'active' : '' }} h-100 w-100">
-                                    <img src="{{ Storage::url($image->path) }}"
-                                         class="d-block w-100 h-100 object-fit-cover"
-                                         alt="Foto {{ $article->title }}">
+                                                                    
+                                <img src="{{ $image->getUrl(600, 400) }}"
+                                    class="d-block w-100 h-100 object-fit-cover"
+                                    alt="Foto {{ $article->title }}">
+
                                 </div>
                             @endforeach
 

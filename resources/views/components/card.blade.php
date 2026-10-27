@@ -3,23 +3,21 @@
 <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden transition-card">
 
     
-    @if($article->images->count() > 0)
+        @if($article->images && $article->images->count() > 0)
         @php
-            $image = $article->images->first();
-            $cropUrl = $image->getUrl(300, 300);   
+            $firstImage = $article->images->first();
         @endphp
-
-        <img src="{{ $cropUrl }}"
+        <img src="{{ $firstImage->getUrl(300, 300) }}"
              class="card-img-top object-fit-cover"
-             style="height: 200px;"
+             style="height: 300px; width: 300px;" 
              alt="Immagine articolo">
-
     @else
-        <img src="https://picsum.photos/seed/{{ $article->id }}/600/400"
+        <img src="https://picsum.photos/seed/{{ $article->id }}/300/300"
              class="card-img-top object-fit-cover"
-             style="height: 200px;"
+             style="height: 300px; width: 300px;"
              alt="Immagine segnaposto">
     @endif
+
 
     <div class="card-body d-flex flex-column p-3">
 

@@ -39,5 +39,6 @@ Route::middleware(['auth', 'isRevisor'])->group(function () {
     Route::get('/revisore/{article}/accept', [RevisorController::class, 'acceptArticle'])->name('revisor.accept');
     Route::get('/revisore/{article}/reject', [RevisorController::class, 'rejectArticle'])->name('revisor.reject');
     Route::get('/revisore/undo', [RevisorController::class, 'undoLastAction'])->name('revisor.undo');
-    Route::get('/amministratore/rendi-revisore/{user}', [RevisorController::class, 'makeRevisor'])->name('make.revisor');
 });
+
+Route::get('/amministratore/rendi-revisore/{user}', [RevisorController::class, 'makeRevisor'])->name('make.revisor');
