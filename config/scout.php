@@ -19,16 +19,18 @@ return [
     'driver' => env('SCOUT_DRIVER', 'collection'),
 
     'tntsearch' => [
-        'storage'  => storage_path(),
-        'asYouType' => false,
-        'fuzziness' => false,
+        'storage' => storage_path(),
+        'fuzziness' => env('TNTSEARCH_FUZZINESS', false),
         'fuzzy' => [
-            'prefix_length' => 2,
+            'prefix_length' => 1, // Abbassalo a 1 per fargli capire le singole lettere!
             'max_expansions' => 50,
             'distance' => 2,
         ],
-        'searchBoolean' => false,
+        'asYouType' => true, // <--- CAMBIA DA FALSE A TRUE QUI!
+        'searchBoolean' => env('TNTSEARCH_BOOLEAN', true),
+        'maxDocs' => env('TNTSEARCH_MAX_DOCS', 500),
     ],
+
 
 
     /*

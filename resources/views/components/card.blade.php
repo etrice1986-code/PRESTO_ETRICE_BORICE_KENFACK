@@ -4,20 +4,21 @@
 
     
         @if($article->images && $article->images->count() > 0)
-        @php
-            $firstImage = $article->images->first();
-        @endphp
-        <img src="{{ $firstImage->getUrl(300, 300) }}"
-             class="card-img-top object-fit-cover"
-             style="height: 300px; width: 300px;" 
-             alt="Immagine articolo">
-    @else
-        <img src="https://picsum.photos/seed/{{ $article->id }}/300/300"
-             class="card-img-top object-fit-cover"
-             style="height: 300px; width: 300px;"
-             alt="Immagine segnaposto">
-    @endif
-
+            @php
+                $firstImage = $article->images->first();
+            @endphp
+            
+            <img src="{{ $firstImage->getUrl(300, 300) }}"
+                class="card-img-top object-fit-cover w-100"
+                style="height: 220px;" 
+                alt="Immagine articolo">
+        @else
+            
+            <img src="https://picsum.photos/seed/{{ $article->id }}/300/300"
+                class="card-img-top object-fit-cover w-100"
+                style="height: 220px;"
+                alt="Immagine segnaposto">
+        @endif
 
     <div class="card-body d-flex flex-column p-3">
 

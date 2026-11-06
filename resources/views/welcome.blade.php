@@ -1,6 +1,6 @@
 <x-layout>
    
-    <div class="container-fluid bg-light py-5 mb-5 shadow-sm border-bottom">
+    <div class="container-fluid  py-5 mb-5 shadow-sm border-bottom">
         <div class="container py-3 text-center">
             <h1 class="display-3 fw-bold text-dark mb-2">{{ __('ui.welcomeTitle') }}</h1>
            

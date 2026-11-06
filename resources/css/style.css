@@ -1,3 +1,7 @@
+
+
+
+
 .heightCustom{
     height: 70vh;
 }
@@ -13,4 +17,25 @@
     object-fit: cover;
 }
 
+.text-white-50:hover {
+    color: #fff !important;
+    transition: color 0.2s ease-in-out;
+}
+
+
+
+[data-bs-theme="dark"] .card .btn-outline-primary {
+    color: #60A5FA !important;            
+    border: 2px solid #2563EB !important;  
+    background-color: transparent !important;
+    font-weight: 600 !important;           
+    transition: all 0.25s ease-in-out;
+}
+
+
+[data-bs-theme="dark"] .card .btn-outline-primary:hover {
+    background-color: #2563EB !important; 
+    color: #FFFFFF !important;            
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important; 
+}
 

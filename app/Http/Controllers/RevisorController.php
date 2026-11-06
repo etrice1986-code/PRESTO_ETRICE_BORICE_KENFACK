@@ -94,12 +94,72 @@ class RevisorController extends Controller
 
     public function makeRevisor(User $user)
     {
+        /** @var \App\Models\User $currentUser */
+        $currentUser = Auth::user();
+
+
+        abort_if(
+            !$currentUser || !$currentUser->isSuperAdmin(),
+            403,
+            'Operazione non consentita. Solo il Super-Amministratore può nominare nuovi revisori.'
+        );
+
+
         Artisan::call(
             'presto:make-user-revisor',
             ['email' => $user->email]
         );
 
-        return redirect()->back()
+        return redirect()->route('home')
             ->with('message', "Complimenti! L'utente {$user->name} è ora revisore.");
+    }
+
+
+
+    /**
+     * Mostra la lista di tutti i revisori attivi (Solo per il Super-Admin)
+     */
+    public function revisorsList()
+    {
+        /** @var \App\Models\User $currentUser */
+        $currentUser = Auth::user();
+
+        // Protezione di sicurezza a livello di backend
+        abort_if(
+            !$currentUser || !$currentUser->isSuperAdmin(),
+            403,
+            'Accesso negato. Solo il Super-Amministratore può consultare questa lista.'
+        );
+
+        // Recupera tutti gli utenti che hanno la spunta is_revisor attiva
+        $revisors = User::where('is_revisor', true)->get();
+
+        return view('revisor.list', compact('revisors'));
+    }
+
+    /**
+     * Rimuove la carica di revisore a un utente specifico
+     */
+    public function removeRevisor(User $user)
+    {
+        /** @var \App\Models\User $currentUser */
+        $currentUser = Auth::user();
+
+        // Impedisci l'azione a chi non è l'admin principale
+        abort_if(
+            !$currentUser || !$currentUser->isSuperAdmin(),
+            403,
+            'Operazione non consentita.'
+        );
+
+        // Impedisci all'admin di togliersi la carica da solo per errore
+        if ($user->id === $currentUser->id) {
+            return redirect()->back()->with('error', 'Non puoi revocare la carica a te stesso!');
+        }
+
+        // Portiamo la colonna a false nel database
+        $user->update(['is_revisor' => false]);
+
+        return redirect()->back()->with('message', "Privilegi revocati con successo a {$user->name}.");
     }
 }
