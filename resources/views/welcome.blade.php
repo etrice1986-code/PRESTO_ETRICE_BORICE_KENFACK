@@ -63,7 +63,7 @@
         
         <div class="row g-4">
             @forelse ($articles as $article)
-                <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
                     
                     <x-card :article="$article" />
                 </div>
