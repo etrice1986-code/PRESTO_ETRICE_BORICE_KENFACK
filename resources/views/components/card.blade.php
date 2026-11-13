@@ -3,22 +3,24 @@
 <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden transition-card">
 
     
-        @if($article->images && $article->images->count() > 0)
-            @php
-                $firstImage = $article->images->first();
-            @endphp
-            
-            <img src="{{ $firstImage->getUrl(300, 300) }}"
-                class="card-img-top object-fit-cover w-100"
-                style="height: 220px;" 
-                alt="Immagine articolo">
-        @else
-            
-            <img src="https://picsum.photos/seed/{{ $article->id }}/300/300"
-                class="card-img-top object-fit-cover w-100"
-                style="height: 220px;"
-                alt="Immagine segnaposto">
-        @endif
+         
+                            <div class="bg-body-secondary d-flex align-items-center justify-content-center border-bottom text-secondary overflow-hidden w-100" style="height: 180px;">
+                               @if($article->images && $article->images->count() > 0)
+                                @php
+                                    $firstImage = $article->images->first();
+                                @endphp
+                               
+                                <img src="{{ $firstImage->getUrl(300, 300) }}"
+                                    class="card-img-top object-fit-cover w-100"
+                                    style="height: 220px;" 
+                                    alt="Immagine articolo">
+                                @else   
+                                    <div class="text-center">
+                                        <i class="bi bi-image" style="font-size: 2.5rem;"></i>
+                                        <p class="small text-muted m-0">Nessuna foto</p>
+                                    </div>
+                                @endif
+                            </div>
 
     <div class="card-body d-flex flex-column p-3">
 

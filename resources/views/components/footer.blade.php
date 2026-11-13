@@ -64,7 +64,7 @@
                         <i class="bi bi-linkedin"></i>
                     </a>
 
-                    <a href="#" class="text-white">
+                    <a href="https://github.com/etrice1986-code/PRESTO_ETRICE_BORICE_KENFACK" class="text-white">
                         <i class="bi bi-github"></i>
                     </a>
                 </div>

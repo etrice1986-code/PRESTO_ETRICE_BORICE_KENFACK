@@ -45,7 +45,7 @@
                                         <p class="small text-muted m-0">Nessuna foto</p>
                                     </div>
                                 @endif
-                            </div>
+                            
 
                     
 
